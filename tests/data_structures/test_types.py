@@ -19,3 +19,13 @@ class TestCoordinates:
         coordinates = Coordinates(x=0, y=0, z=0, w=0)
         assert not coordinates.is_point()
         assert coordinates.is_vector()
+
+    def test_point_conveniece_constructor(self):
+        coordinates = Coordinates.point(1, 2, 3)
+        assert coordinates.is_point()
+        assert not coordinates.is_vector()
+
+    def test_vector_conveniece_constructor(self):
+        coordinates = Coordinates.vector(1, 2, 3)
+        assert not coordinates.is_point()
+        assert coordinates.is_vector()

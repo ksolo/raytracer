@@ -29,3 +29,10 @@ class TestCoordinates:
         coordinates = Coordinates.vector(1, 2, 3)
         assert not coordinates.is_point()
         assert coordinates.is_vector()
+
+    def test_coordinates_addition(self):
+        coord_1 = Coordinates(x=3, y=-2, z=5, w=1)
+        coord_2 = Coordinates(x=-2, y=3, z=1, w=0)
+
+        result = coord_1 + coord_2
+        assert result == Coordinates(x=1, y=1, z=6, w=1)

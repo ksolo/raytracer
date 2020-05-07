@@ -23,3 +23,11 @@ class Coordinates:
 
     def is_vector(self):
         return self.w == float(0)
+
+    def __add__(self, other):
+        x = self.x + other.x
+        y = self.y + other.y
+        z = self.z + other.z
+        w = self.w + other.w
+
+        return self.__class__(x=x, y=y, z=z, w=w)

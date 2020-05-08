@@ -68,3 +68,18 @@ class TestCoordinates:
 
         assert result == Coordinates.vector(-2, -4, -6)
         assert result.is_vector()
+
+    def test_subtracting_vector_from_zero(self):
+        v1 = Coordinates.vector(0, 0, 0)
+        v2 = Coordinates.vector(1, -2, 3)
+
+        result = v1 - v2
+
+        assert result == Coordinates.vector(-1, 2, -3)
+
+    def test_negating_coordinates(self):
+        coord = Coordinates(x=1, y=-2, z=3, w=-4)
+
+        result = -coord
+
+        assert result == Coordinates(x=-1, y=2, z=-3, w=4)

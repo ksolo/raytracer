@@ -39,3 +39,6 @@ class Coordinates:
         w = self.w - other.w
 
         return self.__class__(x=x, y=y, z=z, w=w)
+
+    def __neg__(self):
+        return self.__class__(x=-self.x, y=-self.y, z=-self.z, w=-self.w)

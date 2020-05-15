@@ -83,3 +83,21 @@ class TestCoordinates:
         result = -coord
 
         assert result == Coordinates(x=-1, y=2, z=-3, w=4)
+
+    def test_multiplying_coordinate_by_scalar(self):
+        coord = Coordinates(1, -2, 3, -4)
+        result = coord * 3.5
+
+        assert result == Coordinates(3.5, -7.0, 10.5, -14.0)
+
+    def test_multiplying_coordinates_by_fraction(self):
+        coord = Coordinates(1, -2, 3, -4)
+        result = coord * 0.5
+
+        assert result == Coordinates(0.5, -1.0, 1.5, -2.0)
+
+    def test_dividing_coordinates_by_scalar(self):
+        coord = Coordinates(1, -2, 3, -4)
+        result = coord / 2
+
+        assert result == Coordinates(0.5, -1.0, 1.5, -2.0)

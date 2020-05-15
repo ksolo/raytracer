@@ -42,3 +42,13 @@ class Coordinates:
 
     def __neg__(self):
         return self.__class__(x=-self.x, y=-self.y, z=-self.z, w=-self.w)
+
+    def __mul__(self, other):
+        return self.__class__(
+            x=self.x * other, y=self.y * other, z=self.z * other, w=self.w * other
+        )
+
+    def __truediv__(self, other):
+        return self.__class__(
+            x=self.x / other, y=self.y / other, z=self.z / other, w=self.w / other
+        )

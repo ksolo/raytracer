@@ -127,3 +127,23 @@ class TestCoordinates:
         result = v.magnitude()
 
         assert result == sqrt(14)
+
+    def test_normalize_vector_4_0_0(self):
+        v = Coordinates.vector(4, 0, 0)
+        result = v.normalize()
+
+        assert result == Coordinates.vector(1, 0, 0)
+
+    def test_normalize_vector_1_2_3(self):
+        v = Coordinates.vector(1, 2, 3)
+        result = v.normalize()
+
+        assert round(result.x, 5) == 0.26726
+        assert round(result.y, 5) == 0.53452
+        assert round(result.z, 5) == 0.80178
+
+    def test_magnitude_of_normalized_vector_is_1(self):
+        v = Coordinates.vector(1, 2, 3)
+        result = v.normalize().magnitude()
+
+        assert result == 1.0

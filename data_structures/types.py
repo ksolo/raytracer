@@ -33,6 +33,14 @@ class Coordinates:
 
         return sqrt(x_squared + y_squared + z_squared)
 
+    def normalize(self):
+        magnitude = self.magnitude()
+        x = self.x / magnitude
+        y = self.y / magnitude
+        z = self.z / magnitude
+
+        return self.__class__.vector(x, y, z)
+
     def __add__(self, other):
         x = self.x + other.x
         y = self.y + other.y

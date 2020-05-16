@@ -41,6 +41,20 @@ class Coordinates:
 
         return self.__class__.vector(x, y, z)
 
+    def dot_product(self, vector):
+        xs = self.x * vector.x
+        ys = self.y * vector.y
+        zs = self.z * vector.z
+        ws = self.w * vector.w
+        return xs + ys + zs + ws
+
+    def cross_product(self, vector):
+        x = self.y * vector.z - self.z * vector.y
+        y = self.z * vector.x - self.x * vector.z
+        z = self.x * vector.y - self.y * vector.x
+
+        return self.__class__.vector(x, y, z)
+
     def __add__(self, other):
         x = self.x + other.x
         y = self.y + other.y

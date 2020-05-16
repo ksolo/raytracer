@@ -88,18 +88,21 @@ class TestCoordinates:
 
     def test_multiplying_coordinate_by_scalar(self):
         coord = Coordinates(1, -2, 3, -4)
+
         result = coord * 3.5
 
         assert result == Coordinates(3.5, -7.0, 10.5, -14.0)
 
     def test_multiplying_coordinates_by_fraction(self):
         coord = Coordinates(1, -2, 3, -4)
+
         result = coord * 0.5
 
         assert result == Coordinates(0.5, -1.0, 1.5, -2.0)
 
     def test_dividing_coordinates_by_scalar(self):
         coord = Coordinates(1, -2, 3, -4)
+
         result = coord / 2
 
         assert result == Coordinates(0.5, -1.0, 1.5, -2.0)
@@ -112,30 +115,35 @@ class TestCoordinates:
 
     def test_magnitude_of_vector_0_1_0(self):
         v = Coordinates.vector(1, 0, 0)
+
         result = v.magnitude()
 
         assert result == 1.0
 
     def test_magnitude_of_vector_0_0_1(self):
         v = Coordinates.vector(1, 0, 0)
+
         result = v.magnitude()
 
         assert result == 1.0
 
     def test_magnitude_of_vector_1_2_3(self):
         v = Coordinates.vector(1, 2, 3)
+
         result = v.magnitude()
 
         assert result == sqrt(14)
 
     def test_normalize_vector_4_0_0(self):
         v = Coordinates.vector(4, 0, 0)
+
         result = v.normalize()
 
         assert result == Coordinates.vector(1, 0, 0)
 
     def test_normalize_vector_1_2_3(self):
         v = Coordinates.vector(1, 2, 3)
+
         result = v.normalize()
 
         assert round(result.x, 5) == 0.26726
@@ -144,6 +152,25 @@ class TestCoordinates:
 
     def test_magnitude_of_normalized_vector_is_1(self):
         v = Coordinates.vector(1, 2, 3)
+
         result = v.normalize().magnitude()
 
         assert result == 1.0
+
+    def test_dot_product(self):
+        v1 = Coordinates.vector(1, 2, 3)
+        v2 = Coordinates.vector(2, 3, 4)
+
+        result = v1.dot_product(v2)
+
+        assert result == 20
+
+    def test_cross_product(self):
+        v1 = Coordinates.vector(1, 2, 3)
+        v2 = Coordinates.vector(2, 3, 4)
+
+        result1 = v1.cross_product(v2)
+        result2 = v2.cross_product(v1)
+
+        assert result1 == Coordinates.vector(-1, 2, -1)
+        assert result2 == Coordinates.vector(1, -2, 1)

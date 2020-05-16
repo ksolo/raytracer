@@ -1,3 +1,5 @@
+from math import sqrt
+
 from dataclasses import dataclass
 
 
@@ -23,6 +25,13 @@ class Coordinates:
 
     def is_vector(self):
         return self.w == float(0)
+
+    def magnitude(self):
+        x_squared = self.x ** 2
+        y_squared = self.y ** 2
+        z_squared = self.z ** 2
+
+        return sqrt(x_squared + y_squared + z_squared)
 
     def __add__(self, other):
         x = self.x + other.x

@@ -1,3 +1,5 @@
+from math import sqrt
+
 from data_structures.types import Coordinates
 
 
@@ -101,3 +103,27 @@ class TestCoordinates:
         result = coord / 2
 
         assert result == Coordinates(0.5, -1.0, 1.5, -2.0)
+
+    def test_magnitude_of_vector_1_0_0(self):
+        v = Coordinates.vector(1, 0, 0)
+        result = v.magnitude()
+
+        assert result == 1.0
+
+    def test_magnitude_of_vector_0_1_0(self):
+        v = Coordinates.vector(1, 0, 0)
+        result = v.magnitude()
+
+        assert result == 1.0
+
+    def test_magnitude_of_vector_0_0_1(self):
+        v = Coordinates.vector(1, 0, 0)
+        result = v.magnitude()
+
+        assert result == 1.0
+
+    def test_magnitude_of_vector_1_2_3(self):
+        v = Coordinates.vector(1, 2, 3)
+        result = v.magnitude()
+
+        assert result == sqrt(14)

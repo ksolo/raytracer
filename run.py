@@ -1,4 +1,4 @@
-from data_structures.types import Coordinates
+from data_structures import Coordinates
 
 # Challenge for end of chapter 1
 projectile = {

@@ -1,6 +1,6 @@
 from math import sqrt
 
-from data_structures.types import Coordinates
+from data_structures import Coordinates
 
 
 class TestCoordinates:

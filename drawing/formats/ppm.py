@@ -42,7 +42,7 @@ class PPMFormat:
         width = self.drawable.width
         height = self.drawable.height
 
-        return [self.PPM_VERSION, f"{width} {height}", self.COLOR_SCALE]
+        return [self.PPM_VERSION, f"{width} {height}", str(self.COLOR_SCALE)]
 
     def _pixel_lines(self):
         formatted_pixels = self._formatted_pixels()

@@ -7,14 +7,24 @@ class ColorFormatter:
         self.scale = scale
 
     def _scale_color(self):
+        color = self.color * self.scale
         return [
-            max(self.scale, int(self.color.red * self.scale)),
-            max(self.scale, int(self.color.red * self.scale)),
-            max(self.scale, int(self.color.red * self.scale)),
+            self._normalize_color_component(color.red),
+            self._normalize_color_component(color.green),
+            self._normalize_color_component(color.blue),
         ]
 
+    def _normalize_color_component(self, component):
+        if component > 255:
+            return 255
+        elif component < 0:
+            return 0
+        else:
+            return int(round(component))
+
     def __repr__(self):
-        return " ".join(self._scale_color())
+        color_components = [str(component) for component in self._scale_color()]
+        return " ".join(color_components)
 
 
 class PPMFormat:
@@ -26,7 +36,7 @@ class PPMFormat:
         self.drawable = drawable
 
     def lines(self):
-        return self._header() + self._pixel_lines()
+        return self._header() + self._pixel_lines() + self._new_line()
 
     def _header(self):
         width = self.drawable.width
@@ -34,15 +44,15 @@ class PPMFormat:
 
         return [self.PPM_VERSION, f"{width} {height}", self.COLOR_SCALE]
 
-    def _pixed_lines(self):
+    def _pixel_lines(self):
         formatted_pixels = self._formatted_pixels()
+
         lines = []
-
-        for _ in range(len(formatted_pixels) / self.PIXELS_PER_LINE):
-            line = [formatted_pixels.popleft() for _ in self.PIXELS_PER_LINE]
+        for _ in range(int(len(formatted_pixels) / self.PIXELS_PER_LINE)):
+            line = [formatted_pixels.popleft() for _ in range(self.PIXELS_PER_LINE)]
             lines.append(" ".join(line))
-
-        lines.extend(" ".join(formatted_pixels))
+        if len(formatted_pixels):
+            lines.append(" ".join(formatted_pixels))
 
         return lines
 
@@ -50,3 +60,6 @@ class PPMFormat:
         return deque(
             [str(ColorFormatter(pixel, self.COLOR_SCALE)) for pixel in self.drawable]
         )
+
+    def _new_line(self):
+        return ["\n"]

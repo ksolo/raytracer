@@ -38,6 +38,12 @@ class PPMFormat:
     def lines(self):
         return self._header() + self._pixel_lines() + self._new_line()
 
+    def write(self):
+        with open(
+            f"pictures/canvas_{self.drawable.width}_{self.drawable.height}.ppm", "w"
+        ) as file:
+            file.write("\n".join(self.lines()))
+
     def _header(self):
         width = self.drawable.width
         height = self.drawable.height

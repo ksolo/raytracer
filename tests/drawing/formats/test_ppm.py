@@ -44,3 +44,9 @@ class TestPPMFormat:
 
         for line in lines:
             assert len(line) < 70
+
+    def test_last_line_in_new_line_character(self):
+        canvas = Canvas(5, 3)
+        lines = PPMFormat(canvas).lines()
+
+        assert lines[-1] == "\n"

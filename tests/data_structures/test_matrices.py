@@ -35,3 +35,21 @@ class TestMatrix:
         assert matrix.at(0, 0) == -3
         assert matrix.at(1, 1) == -2
         assert matrix.at(2, 1) == 1
+
+    def test_equality_with_equal_data_sets(self):
+        data1 = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]]
+        data2 = data1[::]
+
+        m1 = Matrix(data1)
+        m2 = Matrix(data2)
+
+        assert m1 == m2
+
+    def test_not_equal_with_non_equal_data_sets(self):
+        data1 = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]]
+        data2 = [[3, 2, 3, 4], [4, 6, 7, 8], [9, 8, 7, 6], [5, 4, 3, 2]]
+
+        m1 = Matrix(data1)
+        m2 = Matrix(data2)
+
+        assert m1 != m2

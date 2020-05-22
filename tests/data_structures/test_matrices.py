@@ -1,3 +1,4 @@
+from data_structures import Coordinates
 from data_structures import Matrix
 
 
@@ -63,3 +64,11 @@ class TestMatrix:
         assert result == Matrix(
             [[20, 22, 50, 48], [44, 54, 114, 108], [40, 58, 110, 102], [16, 26, 46, 42]]
         )
+
+    def test_matrix_multiplication_to_coordinate(self):
+        matrix = Matrix([[1, 2, 3, 4], [2, 4, 4, 2], [8, 6, 4, 1], [0, 0, 0, 1]])
+        coord = Coordinates(1, 2, 3, 1)
+
+        result = matrix * coord
+
+        assert result == Coordinates(18, 24, 33, 1)

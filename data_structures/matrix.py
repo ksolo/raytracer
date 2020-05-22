@@ -1,5 +1,7 @@
 from functools import reduce
 
+from data_structures import Coordinates
+
 
 class Matrix:
     def __init__(self, data):
@@ -18,6 +20,12 @@ class Matrix:
         return self.data == other.data
 
     def __mul__(self, other):
+        if isinstance(other, Matrix):
+            return self._mul_matrix_by_matrix(other)
+        elif isinstance(other, Coordinates):
+            return self._mul_matrix_by_coordinates(other)
+
+    def _mul_matrix_by_matrix(self, other):
         # colums of `self` must equal rows in other
         if len(self.data[0]) != len(other.data):
             pass
@@ -34,3 +42,13 @@ class Matrix:
                 data[ri].append(total)
 
         return self.__class__(data)
+
+    def _mul_matrix_by_coordinates(self, coord):
+        data = []
+        for row in self.data:
+            total = reduce(
+                lambda prev, curr: prev + curr[0] * curr[1], zip(row, coord), 0,
+            )
+            data.append(total)
+
+        return Coordinates(*data)

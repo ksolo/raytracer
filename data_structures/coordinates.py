@@ -83,3 +83,6 @@ class Coordinates:
         return self.__class__(
             x=self.x / other, y=self.y / other, z=self.z / other, w=self.w / other
         )
+
+    def __iter__(self):
+        return iter([self.x, self.y, self.z, self.w])

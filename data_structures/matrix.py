@@ -16,6 +16,9 @@ class Matrix:
     def row(self, row):
         return self.data[row]
 
+    def transpose(self):
+        return self.__class__([self.column(i) for i in range(len(self.data[0]))])
+
     def __eq__(self, other):
         return self.data == other.data
 

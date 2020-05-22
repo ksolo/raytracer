@@ -92,3 +92,21 @@ class TestMatrix:
         result = identity_matrix * coord
 
         assert result == coord
+
+    def test_transposing_matrix(self):
+        m = Matrix([[0, 9, 3, 0], [9, 8, 0, 8], [1, 8, 5, 3], [0, 0, 5, 8]])
+
+        result = m.transpose()
+
+        assert result == Matrix(
+            [[0, 9, 1, 0], [9, 8, 8, 0], [3, 0, 5, 5], [0, 8, 3, 8]]
+        )
+
+    def test_transposing_identity_matrix_results_in_identity_matrix(self):
+        identity_matrix = Matrix(
+            [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+        )
+
+        result = identity_matrix.transpose()
+
+        assert result == identity_matrix

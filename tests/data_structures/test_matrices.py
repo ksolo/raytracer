@@ -72,3 +72,23 @@ class TestMatrix:
         result = matrix * coord
 
         assert result == Coordinates(18, 24, 33, 1)
+
+    def test_matrix_mul_by_identity_matrix(self):
+        m = Matrix([[0, 1, 2, 4], [1, 2, 4, 8], [2, 4, 8, 16], [4, 8, 16, 32]])
+        identity_matrix = Matrix(
+            [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+        )
+
+        result = m * identity_matrix
+
+        assert result == m
+
+    def test_idenity_matrix_mul_by_coordinates(self):
+        identity_matrix = Matrix(
+            [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+        )
+        coord = Coordinates(1, 2, 3, 4)
+
+        result = identity_matrix * coord
+
+        assert result == coord

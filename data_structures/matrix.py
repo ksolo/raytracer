@@ -1,3 +1,6 @@
+from functools import reduce
+
+
 class Matrix:
     def __init__(self, data):
         self.data = data
@@ -23,13 +26,11 @@ class Matrix:
         for ri in range(len(self.data)):
             data.append([])
             for ci in range(len(other.data[0])):
-                row = self.row(ri)
-                col = other.column(ci)
-
-                total = 0
-                for i in range(len(row)):
-                    total += row[i] * col[i]
-
+                total = reduce(
+                    lambda prev, curr: prev + curr[0] * curr[1],
+                    zip(self.row(ri), other.column(ci)),
+                    0,
+                )
                 data[ri].append(total)
 
         return self.__class__(data)

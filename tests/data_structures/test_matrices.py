@@ -110,3 +110,10 @@ class TestMatrix:
         result = identity_matrix.transpose()
 
         assert result == identity_matrix
+
+    def test_calculating_determinant_of_2_by_2_matrix(self):
+        matrix = Matrix([[1, 5], [-3, 2]])
+
+        result = matrix.determinant()
+
+        assert result == 17

@@ -19,6 +19,9 @@ class Matrix:
     def transpose(self):
         return self.__class__([self.column(i) for i in range(len(self.data[0]))])
 
+    def determinant(self):
+        return (self.at(0, 0) * self.at(1, 1)) - (self.at(0, 1) * self.at(1, 0))
+
     def __eq__(self, other):
         return self.data == other.data
 

@@ -22,6 +22,12 @@ class Matrix:
     def determinant(self):
         return (self.at(0, 0) * self.at(1, 1)) - (self.at(0, 1) * self.at(1, 0))
 
+    def submatrix(self, rindex, cindex):
+        data = [row[:] for i, row in enumerate(self.data) if i != rindex]
+        for row in data:
+            row.pop(cindex)
+        return self.__class__(data)
+
     def __eq__(self, other):
         return self.data == other.data
 

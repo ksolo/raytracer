@@ -117,3 +117,17 @@ class TestMatrix:
         result = matrix.determinant()
 
         assert result == 17
+
+    def test_submatrix_of_3_by_3_is_2_by_2_matrix(self):
+        matrix = Matrix([[1, 5, 0], [-3, 2, 7], [0, 6, -3]])
+
+        result = matrix.submatrix(0, 2)
+
+        assert result == Matrix([[-3, 2], [0, 6]])
+
+    def test_submatrix_of_4_by_4_matrix_is_3_by_3_matrix(self):
+        matrix = Matrix([[-6, 1, 1, 6], [-8, 5, 8, 6], [-1, 0, 8, 2], [-7, 1, -1, 1]])
+
+        result = matrix.submatrix(2, 1)
+
+        assert result == Matrix([[-6, 1, 6], [-8, 8, 6], [-7, -1, 1]])

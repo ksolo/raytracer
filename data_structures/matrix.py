@@ -28,6 +28,13 @@ class Matrix:
             row.pop(cindex)
         return self.__class__(data)
 
+    def minor(self, rindex, cindex):
+        return self.submatrix(rindex, cindex).determinant()
+
+    def cofactor(self, rindex, cindex):
+        minor = self.minor(rindex, cindex)
+        return minor if (rindex + cindex % 2 == 0) else -minor
+
     def __eq__(self, other):
         return self.data == other.data
 

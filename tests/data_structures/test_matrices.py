@@ -131,3 +131,22 @@ class TestMatrix:
         result = matrix.submatrix(2, 1)
 
         assert result == Matrix([[-6, 1, 6], [-8, 8, 6], [-7, -1, 1]])
+
+    def test_caclculating_minor_of_3_by_3_matrix(self):
+        matrix = Matrix([[3, 5, 0], [2, -1, -7], [6, -1, 5]])
+        sub_matrix = matrix.submatrix(1, 0)
+
+        determinant = sub_matrix.determinant()
+        minor = matrix.minor(1, 0)
+
+        assert determinant == 25
+        assert determinant == minor
+
+    def test_calculating_cofactor_of_3_by_3_matrix(self):
+        matrix = Matrix([[3, 5, 0], [2, -1, -7], [6, -1, 5]])
+
+        assert matrix.minor(0, 0) == -12
+        assert matrix.minor(0, 0) == matrix.cofactor(0, 0)
+
+        assert matrix.minor(1, 0) == 25
+        assert matrix.cofactor(1, 0) == -25

@@ -4,6 +4,10 @@ from data_structures import Coordinates
 
 
 class Matrix:
+    """
+    Matrix data structure is used to provide operations on a two dimensional numeric data set.
+    """
+
     def __init__(self, data):
         self.data = data
 
@@ -32,6 +36,15 @@ class Matrix:
         return self.submatrix(rindex, cindex).determinant()
 
     def cofactor(self, rindex, cindex):
+        """
+        Calculate the cofactor of the matrix for the provided row and column
+
+        arguments:
+            rindex: int index of row used to calculate minor
+            cindex: int index of col used to calculate minor
+        returns:
+            numeric result either int or float
+        """
         minor = self.minor(rindex, cindex)
         return minor if (rindex + cindex % 2 == 0) else -minor
 

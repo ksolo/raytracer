@@ -150,3 +150,20 @@ class TestMatrix:
 
         assert matrix.minor(1, 0) == 25
         assert matrix.cofactor(1, 0) == -25
+
+    def test_calculating_determinant_of_3_by_3_matrix(self):
+        matrix = Matrix([[1, 2, 6], [-5, 8, -4], [2, 6, 4]])
+
+        assert matrix.cofactor(0, 0) == 56
+        assert matrix.cofactor(0, 1) == 12
+        assert matrix.cofactor(0, 2) == -46
+        assert matrix.determinant() == -196
+
+    def test_calculating_determinant_of_4_by_4_matrix(self):
+        matrix = Matrix([[-2, -8, 3, 5], [-3, 1, 7, 3], [1, 2, -9, 6], [-6, 7, 7, -9]])
+
+        assert matrix.cofactor(0, 0) == 690
+        assert matrix.cofactor(0, 1) == 447
+        assert matrix.cofactor(0, 2) == 210
+        assert matrix.cofactor(0, 3) == 51
+        assert matrix.determinant() == -4071

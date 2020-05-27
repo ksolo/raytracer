@@ -167,3 +167,11 @@ class TestMatrix:
         assert matrix.cofactor(0, 2) == 210
         assert matrix.cofactor(0, 3) == 51
         assert matrix.determinant() == -4071
+
+    def test_matrix_is_invertible(self):
+        matrix = Matrix([[6, 4, 4, 4], [5, 5, 7, 6], [4, -9, 3, -7], [9, 1, 7, -6]])
+        assert matrix.is_invertible()
+
+    def test_matrix_is_not_invertible(self):
+        matrix = Matrix([[-4, 2, -2, -3], [9, 6, 2, 6], [0, -5, 1, -5], [0, 0, 0, 0]])
+        assert not matrix.is_invertible()

@@ -24,7 +24,13 @@ class Matrix:
         return self.__class__([self.column(i) for i in range(len(self.data[0]))])
 
     def determinant(self):
-        return (self.at(0, 0) * self.at(1, 1)) - (self.at(0, 1) * self.at(1, 0))
+        if len(self.data) == 2:
+            return (self.at(0, 0) * self.at(1, 1)) - (self.at(0, 1) * self.at(1, 0))
+        else:
+            result = 0
+            for col in range(len(self.data)):
+                result += self.at(0, col) * self.cofactor(0, col)
+            return result
 
     def submatrix(self, rindex, cindex):
         data = [row[:] for i, row in enumerate(self.data) if i != rindex]
@@ -47,6 +53,9 @@ class Matrix:
         """
         minor = self.minor(rindex, cindex)
         return minor if (rindex + cindex % 2 == 0) else -minor
+
+    def is_invertible(self):
+        return self.determinant() != 0
 
     def __eq__(self, other):
         return self.data == other.data

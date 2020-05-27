@@ -175,3 +175,49 @@ class TestMatrix:
     def test_matrix_is_not_invertible(self):
         matrix = Matrix([[-4, 2, -2, -3], [9, 6, 2, 6], [0, -5, 1, -5], [0, 0, 0, 0]])
         assert not matrix.is_invertible()
+
+    def test_inverse_matrix(self):
+        matrix = Matrix([[-5, 2, 6, -8], [1, -5, 1, 8], [7, 7, -6, -7], [1, -3, 7, 4]])
+
+        result = matrix.inverse()
+
+        assert matrix.determinant() == 532
+        assert matrix.cofactor(2, 3) == -160
+        assert matrix.cofactor(3, 2) == 105
+
+        assert result.at(3, 2) == -160 / 532
+        assert result.at(2, 3) == 105 / 532
+        assert self.rounded(result.data) == [
+            [0.21805, 0.45113, 0.24060, -0.04511],
+            [-0.80827, -1.45677, -0.44361, 0.52068],
+            [-0.07895, -0.22368, -0.05263, 0.19737],
+            [-0.52256, -0.81391, -0.30075, 0.30639],
+        ]
+
+    def test_second_4_by_4_inversion(self):
+        matrix = Matrix([[8, -5, 9, 2], [7, 5, 6, 1], [-6, 0, 9, 6], [-3, 0, -9, -4]])
+
+        result = matrix.inverse()
+
+        assert self.rounded(result.data) == [
+            [-0.15385, -0.15385, -0.28205, -0.53846],
+            [-0.07692, 0.12308, 0.02564, 0.03077],
+            [0.35897, 0.35897, 0.43590, 0.92308],
+            [-0.69231, -0.69231, -0.76923, -1.92308],
+        ]
+
+    def test_inversion_reverts_correctly(self):
+        m1 = Matrix([[3, -9, 7, 3], [3, -8, 2, -9], [-4, 4, 4, 1], [-6, 5, -1, 1]])
+        m2 = Matrix([[8, 2, 2, 2], [3, -1, 7, 0], [7, 0, 5, 4], [6, -2, 0, 5]])
+        m3 = m1 * m2
+
+        result = m3 * m2.inverse()
+
+        assert self.rounded(m1.data) == self.rounded(result.data)
+
+    def rounded(self, dataset):
+        """helper method to round expected values"""
+        data = []
+        for row in dataset:
+            data.append([round(val, 5) for val in row])
+        return data

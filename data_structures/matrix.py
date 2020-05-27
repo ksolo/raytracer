@@ -6,6 +6,9 @@ from data_structures import Coordinates
 class Matrix:
     """
     Matrix data structure is used to provide operations on a two dimensional numeric data set.
+
+    arguments:
+        data: two dimensional list
     """
 
     def __init__(self, data):
@@ -52,10 +55,21 @@ class Matrix:
             numeric result either int or float
         """
         minor = self.minor(rindex, cindex)
-        return minor if (rindex + cindex % 2 == 0) else -minor
+        return minor if (rindex + cindex) % 2 == 0 else -minor
 
     def is_invertible(self):
         return self.determinant() != 0
+
+    def inverse(self):
+        if not self.is_invertible():
+            return None
+
+        data = [row[::] for row in self.data]
+        for row in range(len(self.data)):
+            for col in range(len(self.data)):
+                data[col][row] = self.cofactor(row, col) / self.determinant()
+
+        return self.__class__(data)
 
     def __eq__(self, other):
         return self.data == other.data

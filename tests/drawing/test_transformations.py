@@ -1,5 +1,5 @@
 from data_structures import Coordinates
-from drawing.transformations import translation
+from drawing.transformations import translation, scaling
 
 
 class TestTranslation:
@@ -27,3 +27,37 @@ class TestTranslation:
         result = transform * vector
 
         assert result == vector
+
+
+class TestScaling:
+    def test_scaling_matrix_applied_to_point(self):
+        transform = scaling(2, 3, 4)
+        point = Coordinates.point(-4, 6, 8)
+
+        result = transform * point
+
+        assert result == Coordinates.point(-8, 18, 32)
+
+    def test_scaling_matrix_applied_to_vector(self):
+        transform = scaling(2, 3, 4)
+        vector = Coordinates.vector(-4, 6, 8)
+
+        result = transform * vector
+
+        assert result == Coordinates.vector(-8, 18, 32)
+
+    def test_multiply_by_inverse_of_scaling_matrix(self):
+        transform = scaling(2, 3, 4).inverse()
+        vector = Coordinates.vector(-4, 6, 8)
+
+        result = transform * vector
+
+        assert result == Coordinates.vector(-2, 2, 2)
+
+    def test_reflection_is_scaling_by_a_negative_value(self):
+        transform = scaling(-1, 1, 1)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(-2, 3, 4)

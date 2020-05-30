@@ -61,3 +61,7 @@ class TestScaling:
         result = transform * point
 
         assert result == Coordinates.point(-2, 3, 4)
+
+
+class TestRotation:
+    pass

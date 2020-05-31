@@ -20,3 +20,14 @@ def rotation_x(rads):
             [0, 0, 0, 1],
         ]
     )
+
+
+def rotation_y(rads):
+    return Matrix(
+        [
+            [cos(rads), 0, sin(rads), 0],
+            [0, 1, 0, 0],
+            [-sin(rads), 0, cos(rads), 0],
+            [0, 0, 0, 1],
+        ]
+    )

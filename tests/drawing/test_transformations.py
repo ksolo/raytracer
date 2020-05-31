@@ -1,7 +1,7 @@
 from math import radians, sqrt
 
 from data_structures import Coordinates
-from drawing.transformations import translation, scaling, rotation_x
+from drawing.transformations import translation, scaling, rotation_x, rotation_y
 
 
 class TestTranslation:
@@ -90,6 +90,19 @@ class TestRotation:
         assert self.rounded(half_quarter_rotation) == self.rounded(
             [0, sqrt(2) / 2, -(sqrt(2) / 2), 1,]
         )
+
+    def test_rotating_a_point_around_y_axis(self):
+        point = Coordinates.point(0, 0, 1)
+        half_quarter = rotation_y(radians(45))
+        full_quarter = rotation_y(radians(90))
+
+        half_quarter_rotation = half_quarter * point
+        full_quarter_rotaton = full_quarter * point
+
+        assert self.rounded(half_quarter_rotation) == self.rounded(
+            [sqrt(2) / 2, 0, sqrt(2) / 2, 1]
+        )
+        assert self.rounded(full_quarter_rotaton) == self.rounded([1, 0, 0, 1])
 
     def rounded(self, point):
         return [round(coordinate, 5) for coordinate in point]

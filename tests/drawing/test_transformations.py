@@ -1,5 +1,7 @@
+from math import radians, sqrt
+
 from data_structures import Coordinates
-from drawing.transformations import translation, scaling
+from drawing.transformations import translation, scaling, rotation_x
 
 
 class TestTranslation:
@@ -64,4 +66,30 @@ class TestScaling:
 
 
 class TestRotation:
-    pass
+    def test_rotating_a_point_around_x_axis(self):
+        point = Coordinates.point(0, 1, 0)
+        half_quarter = rotation_x(radians(45))
+        full_quarter = rotation_x(radians(90))
+
+        half_quarter_rotation = half_quarter * point
+        full_quarter_rotaton = full_quarter * point
+
+        assert self.rounded(half_quarter_rotation) == self.rounded(
+            [0, sqrt(2) / 2, sqrt(2) / 2, 1]
+        )
+        assert self.rounded(full_quarter_rotaton) == self.rounded(
+            Coordinates.point(0, 0, 1)
+        )
+
+    def test_inverse_of_x_rotation_goes_in_opposite_direction(self):
+        point = Coordinates.point(0, 1, 0)
+        half_quarter = rotation_x(radians(45)).inverse()
+
+        half_quarter_rotation = half_quarter * point
+
+        assert self.rounded(half_quarter_rotation) == self.rounded(
+            [0, sqrt(2) / 2, -(sqrt(2) / 2), 1,]
+        )
+
+    def rounded(self, point):
+        return [round(coordinate, 5) for coordinate in point]

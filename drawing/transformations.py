@@ -1,4 +1,4 @@
-from math import sin, cos, radians
+from math import sin, cos
 
 from data_structures import Matrix
 
@@ -11,12 +11,12 @@ def scaling(x, y, z):
     return Matrix([[x, 0, 0, 0], [0, y, 0, 0], [0, 0, z, 0], [0, 0, 0, 1]])
 
 
-def rotation_x(radians):
+def rotation_x(rads):
     return Matrix(
         [
             [1, 0, 0, 0],
-            [0, cos(radians), -sin(radians), 0],
-            [0, sin(radians), cos(radians), 0],
+            [0, cos(rads), -sin(rads), 0],
+            [0, sin(rads), cos(rads), 0],
             [0, 0, 0, 1],
         ]
     )

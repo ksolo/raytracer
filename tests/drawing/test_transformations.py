@@ -11,6 +11,10 @@ from drawing.transformations import (
 )
 
 
+def rounded(point):
+    return [round(coordinate, 5) for coordinate in point]
+
+
 class TestTranslation:
     def test_multiplying_translation_matrix(self):
         transform = translation(5, -3, 2)
@@ -81,12 +85,10 @@ class TestRotation:
         half_quarter_rotation = half_quarter * point
         full_quarter_rotaton = full_quarter * point
 
-        assert self.rounded(half_quarter_rotation) == self.rounded(
+        assert rounded(half_quarter_rotation) == rounded(
             [0, sqrt(2) / 2, sqrt(2) / 2, 1]
         )
-        assert self.rounded(full_quarter_rotaton) == self.rounded(
-            Coordinates.point(0, 0, 1)
-        )
+        assert rounded(full_quarter_rotaton) == rounded(Coordinates.point(0, 0, 1))
 
     def test_inverse_of_x_rotation_goes_in_opposite_direction(self):
         point = Coordinates.point(0, 1, 0)
@@ -94,7 +96,7 @@ class TestRotation:
 
         half_quarter_rotation = half_quarter * point
 
-        assert self.rounded(half_quarter_rotation) == self.rounded(
+        assert rounded(half_quarter_rotation) == rounded(
             [0, sqrt(2) / 2, -(sqrt(2) / 2), 1,]
         )
 
@@ -106,10 +108,10 @@ class TestRotation:
         half_quarter_rotation = half_quarter * point
         full_quarter_rotaton = full_quarter * point
 
-        assert self.rounded(half_quarter_rotation) == self.rounded(
+        assert rounded(half_quarter_rotation) == rounded(
             [sqrt(2) / 2, 0, sqrt(2) / 2, 1]
         )
-        assert self.rounded(full_quarter_rotaton) == self.rounded([1, 0, 0, 1])
+        assert rounded(full_quarter_rotaton) == rounded([1, 0, 0, 1])
 
     def test_rotating_a_point_around_z_axis(self):
         point = Coordinates.point(0, 1, 0)
@@ -119,10 +121,10 @@ class TestRotation:
         half_quarter_rotation = half_quarter * point
         full_quarter_rotaton = full_quarter * point
 
-        assert self.rounded(half_quarter_rotation) == self.rounded(
+        assert rounded(half_quarter_rotation) == rounded(
             [-sqrt(2) / 2, sqrt(2) / 2, 0, 1]
         )
-        assert self.rounded(full_quarter_rotaton) == self.rounded([-1, 0, 0, 1])
+        assert rounded(full_quarter_rotaton) == rounded([-1, 0, 0, 1])
 
     def rounded(self, point):
         return [round(coordinate, 5) for coordinate in point]
@@ -176,3 +178,30 @@ class TestShearing:
         result = transform * point
 
         assert result == Coordinates.point(2, 3, 7)
+
+
+class TestApplyingMultileTranslations:
+    def test_individual_transformations_are_applied_in_sequence(self):
+        point = Coordinates.point(1, 0, 1)
+        rotate = rotation_x(radians(90))
+        scale = scaling(5, 5, 5)
+        translate = translation(10, 5, 7)
+
+        rotated_point = rotate * point
+        scaled_point = scale * rotated_point
+        translated_point = translate * scaled_point
+
+        assert rounded(rotated_point) == rounded(Coordinates.point(1, -1, 0))
+        assert rounded(scaled_point) == rounded(Coordinates.point(5, -5, 0))
+        assert translated_point == Coordinates.point(15, 0, 7)
+
+    def test_chaining_transformations_must_be_applied_in_reverse_order(self):
+        point = Coordinates.point(1, 0, 1)
+        rotate = rotation_x(radians(90))
+        scale = scaling(5, 5, 5)
+        translate = translation(10, 5, 7)
+
+        transforms = translate * scale * rotate
+        result = transforms * point
+
+        assert result == Coordinates.point(15, 0, 7)

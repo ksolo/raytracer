@@ -4,6 +4,7 @@ from data_structures import Coordinates
 from drawing.transformations import (
     translation,
     scaling,
+    shearing,
     rotation_x,
     rotation_y,
     rotation_z,
@@ -125,3 +126,53 @@ class TestRotation:
 
     def rounded(self, point):
         return [round(coordinate, 5) for coordinate in point]
+
+
+class TestShearing:
+    def test_shearing_transformation_moves_x_in_proportion_to_y(self):
+        transform = shearing(1, 0, 0, 0, 0, 0)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(5, 3, 4)
+
+    def test_shearing_transformation_moves_x_in_proportion_to_z(self):
+        transform = shearing(0, 1, 0, 0, 0, 0)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(6, 3, 4)
+
+    def test_shearing_transformation_moves_y_in_proportion_to_x(self):
+        transform = shearing(0, 0, 1, 0, 0, 0)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(2, 5, 4)
+
+    def test_shearing_transformation_moves_y_in_proportion_to_z(self):
+        transform = shearing(0, 0, 0, 1, 0, 0)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(2, 7, 4)
+
+    def test_shearing_transformation_moves_z_in_proportion_to_x(self):
+        transform = shearing(0, 0, 0, 0, 1, 0)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(2, 3, 6)
+
+    def test_shearing_transformation_moves_x_in_proportion_to_z(self):
+        transform = shearing(0, 0, 0, 0, 0, 1)
+        point = Coordinates.point(2, 3, 4)
+
+        result = transform * point
+
+        assert result == Coordinates.point(2, 3, 7)

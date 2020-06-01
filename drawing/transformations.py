@@ -42,3 +42,7 @@ def rotation_z(rads):
             [0, 0, 0, 1],
         ]
     )
+
+
+def shearing(xy=0, xz=0, yx=0, yz=0, zx=0, zy=0):
+    return Matrix([[1, xy, xz, 0], [yx, 1, yz, 0], [zx, zy, 1, 0], [0, 0, 0, 1]])
